@@ -20,8 +20,8 @@ param(
     [Alias("h")][Switch] $help,
     [Alias("l")][Switch] $list_volumes,
     [Alias("e")]$exclude_list = "",
-    [Alias("w")]$warning = 80,
-    [Alias("c")]$critical = 90
+    [Alias("w")]$warning = 90,
+    [Alias("c")]$critical = 95
 )
 
 $global:message_array = @()
@@ -46,8 +46,8 @@ function Show-Help {
     -h : Displays this message
     -l : lists volumes only
     -e : list of volumes to exclude
-    -w : Set warning level as a percentage (Default: 80)
-    -c : Set critical level as a percentage (Default: 90)
+    -w : Set warning level as a percentage (Default: 90)
+    -c : Set critical level as a percentage (Default: 95)
     "
     exit 0    
 }
@@ -89,10 +89,6 @@ function List-Volumes {
 }
 
 function Process-Parameters {
-    if (($critical -isnot [int]) -or ($warning -isnot [int])) {
-        Write-Host "-c and -w Must be integers"
-        Show-Help
-    }
     if ($help) {Show-Help}
     if ($list_volumes) {List-Volumes}
 
